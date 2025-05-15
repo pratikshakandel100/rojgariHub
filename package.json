@@ -1,0 +1,19 @@
+{
+  "name": "rojgarihub",
+  "version": "1.0.0",
+  "description": "A job Portal",
+  "main": "script.js",
+  "scripts": {
+    "backend": "cd backend && nodemon src/app.js",
+    "frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "author": "Pratiksha Kandel",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
