@@ -2,13 +2,16 @@
   "name": "rojgarihub-backend",
   "version": "1.0.0",
   "description": "A job Portal",
-  "main": "src/script.js",
+  "main": "index.js",
+  "type":"module",
   "scripts": {
-    "start": "node src/script.js"
+    "start": "nodemon src/server.js",
+    "dev":"nodemon src/server.js"
   },
   "author": "Pratiksha Kandel",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "bcryptjs":"3.0.2"
   }
 }
