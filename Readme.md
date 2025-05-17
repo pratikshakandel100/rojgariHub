@@ -21,7 +21,7 @@ git clone https://github.com/pratikshakandel100/rojgariHub.git
    npm run install-all
    ```
    
-- **Note:** Rename .env.sample to .env inside backend and update **MONGO_REMOTE_URL**  
+- **Note:** Rename .env.sample to .env inside backend and update **POSTGRES_REMOTE_URL**  
 <br>
 
 3. And start the project:
