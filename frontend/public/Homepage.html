@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROJGARIHUB</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    
+   <div class="logo">
+  <img src="public/logo.png" alt="ROJGARIHUB job"  />
+</div>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Find Jobs</a>
+      <a href="#">Post Jobs</a>
+    </nav>
+    <div class="auth-buttons">
+     
+        <button class="login" onclick="goToLogin()">Login</button>
+      <button class="create-account" onclick="goToSignup()">Create Account</button>
+    </div>
+      
+  </header>
+    
+  <main class="main-content">
+    <div class="text-section">
+      <h1>Find Your <span class="highlight">Dream Job</span> With<br><strong>ROJGARIHUB</strong></h1>
+      <p>Connect with top employers and discover opportunities that match your skills and career goals</p>
+      <div class="action-buttons">
+       <button class="find-jobs" onclick="goToFindJobs()">Find Jobs</button>
+        <button class="post-job" onclick="goToPostJob()">Post a Job</button>
+      </div>
+        
+    </div>
+    <div class="image-section">
+      <img src="public/homepage.jpg" alt = "job seach illustration " />
+    </div>
+  </main>
+   <script>
+    function goToLogin() {
+      window.location.href = 'login.html';
+    }
+
+    function goToSignup() {
+      window.location.href = 'signup.html';
+    }
+
+    function goToFindJobs() {
+      window.location.href = 'find-jobs.html';
+    }
+
+    function goToPostJob() {
+      window.location.href = 'post-job.html';
+    }
+    </script>
+   </body>
+</html>
+</body>
+</html>

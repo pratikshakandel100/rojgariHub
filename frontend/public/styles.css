@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0; 
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: white;
+  color: black;
+  font-size: 20px; 
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  padding: 30px 40px;  
+  background-color: white;
+  position: fixed;      
+  top: 0;
+  width: 100%;
+  box-shadow: 0 2px 5px black(0,0,0,0.1); 
+  z-index: 1000;
+}
+
+.logo img {
+  width: 150px;
+  height: auto;
+  display: block;
+  
+}
+
+nav a {
+  margin: 0 20px;   
+  text-decoration: none;
+  color: black;
+  font-size: 18px;  
+  line-height: 1;
+  display: inline-block;
+  padding: 5px 0;
+}
+
+.auth-buttons button {
+  margin-left: 10px;
+  padding: 5px 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.create-account {
+  background-color: blue;
+  color: black;  
+  border: none;
+}
+
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; 
+  padding: 100px 40px 40px;
+  margin-top: 150px; 
+}
+
+.text-section h1 {
+  font-size: 60px;
+  margin-bottom: 40px;
+}
+
+.text-section .highlight {
+  color: darkblue;
+  max-width: 50px; 
+}
+
+.text-section p {
+  margin-bottom: 50px;
+  max-width: 500px;
+  color: gray;
+}
+
+.action-buttons button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.find-jobs {
+  background-color: darkblue;
+  color: white;
+  border: none;
+}
+
+.image-section img {
+  max-width: 400px; 
+  height: auto;
+}
+
+
+
+
+ 
+  
+ 
