@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post a New Job | RojgariHub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="PostJob.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="public/logo.png" alt="Logo">
+    </div>
+    <nav>
+      <a href="Homepage.html">Home</a>
+      <a href="findJobList.html">Find Jobs</a>
+      <a href="PostJob.html">Post Jobs</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>Post a New Job</h2>
+    <form>
+      <label for="jobTitle">Job Title</label>
+      <input type="text" id="jobTitle" name="jobTitle" required>
+
+      <label for="companyName">Company Name</label>
+      <input type="text" id="companyName" name="companyName" required>
+
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" required>
+
+      <label for="jobType">Job Type</label>
+      <select id="jobType" name="jobType" required>
+        <option value="">Select type</option>
+        <option value="full-time">Full-Time</option>
+        <option value="part-time">Part-Time</option>
+        <option value="internship">Internship</option>
+        <option value="contract">Contract</option>
+      </select>
+
+      <label for="salaryRange">Salary Range</label>
+      <input type="text" id="salaryRange" name="salaryRange" required>
+
+      <label for="experience">Experience Level</label>
+      <select id="experience" name="experience" required>
+        <option value="">Select level</option>
+        <option value="entry">Entry Level</option>
+        <option value="mid">Mid Level</option>
+        <option value="senior">Senior Level</option>
+      </select>
+
+      <label for="description">Job Description</label>
+      <textarea id="description" name="description" required></textarea>
+
+      <button type="submit" class="submit-button">Post Job</button>
+    </form>
+  </div>
+</body>
+</html>
