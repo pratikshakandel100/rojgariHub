@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RojgariHub - Job Application</title>
+
+    <link rel="stylesheet" href="apply.css">
+</head>
+<body> 
+    <div class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="image.png">
+            </div>
+            <nav class="nav-menu">
+                <a href="#">Home</a>
+                <a href="#">Find Jobs</a>
+                <a href="#">Post Jobs</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="job-header">
+            <h2 class="job-title">Developer</h2>
+            <h3 class="company-name">LeapFrog Technology</h3>
+        </div>
+
+        <div class="form-container">
+            <form id="jobApplicationForm">
+                <!-- Personal Information Section -->
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <!-- Professional Information Section -->
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience">Years of Experience</label>
+                    <input type="number" id="experience" name="experience" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="skills">Key Skills</label>
+                    <input type="text" id="skills" name="skills" placeholder="e.g., JavaScript, React, Node.js" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="resume">Resume/CV</label>
+                    <div class="upload-section" onclick="document.getElementById('resumeFile').click()">
+                        <div class="upload-text">Click to upload your Resume/CV</div>
+                        <input type="file" id="resumeFile" name="resume" accept=".pdf,.doc,.docx" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <!-- Final Details Section -->
+                <div class="form-group">
+                    <label for="interest">Why are you interested in this position?</label>
+                    <textarea id="interest" name="interest" placeholder="Tell us what motivates you to apply for this role..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="startDate">When Can You Start?</label>
+                    <input type="date" id="startDate" name="startDate" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">SUBMIT APPLICATION</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Form submission handling
+        document.getElementById('jobApplicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.textContent = 'SUBMITTING...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                alert('Application submitted successfully! We will contact you soon.');
+                submitBtn.textContent = 'SUBMITTED ✓';
+                submitBtn.style.backgroundColor = '#10B981';
+            }, 2000);
+        });
+
+        // File upload handling
+        document.getElementById('resumeFile').addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name;
+            if (fileName) {
+                document.querySelector('.upload-text').textContent = `Selected: ${fileName}`;
+                document.querySelector('.upload-section').style.borderColor = '#10B981';
+                document.querySelector('.upload-section').style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
+            }
+        });
+
+        // Smooth scrolling for better UX
+        document.querySelectorAll('input, textarea').forEach(element => {
+            element.addEventListener('focus', function() {
+                setTimeout(() => {
+                    this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            });
+        });
+
+        // Auto-resize textarea
+        document.getElementById('interest').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+    </script>
+</body>
+</html>
