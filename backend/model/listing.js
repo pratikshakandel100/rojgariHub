@@ -1,10 +1,5 @@
-import connectDB from "../config/db.js";
-
-
-
-const Schema = mongoose.Schema;
-
 import mongoose from 'mongoose';
+import { LISTING_MODEL } from '../utils/constant.js';
 
 const listingSchema = new mongoose.Schema({
   title: {
@@ -32,7 +27,7 @@ const listingSchema = new mongoose.Schema({
   salary: {
     min: { type: Number },
     max: { type: Number },
-    required: false
+   
   },
   description: {
     type: String,
@@ -61,6 +56,6 @@ const listingSchema = new mongoose.Schema({
 //   ]
 });
 
-const listing = mongoose.model('listing', listingSchema);
+const listing = mongoose.model(LISTING_MODEL, listingSchema);
 
 export default listing;

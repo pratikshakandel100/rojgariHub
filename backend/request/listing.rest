@@ -1,0 +1,81 @@
+#merobike from app.js
+@BASE_URL = http://localhost:9000/listing
+@TOKEN = 1
+
+
+
+# get single student details 
+GET {{BASE_URL}}/240167  
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+
+###
+
+
+
+# add listing
+GET {{BASE_URL}}/all
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+###
+
+
+#add listing
+
+POST {{BASE_URL}}/add
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "title": "Android Development",
+  "company": "Paytm",
+  "location": "Kathmandu",
+  "type": "Full-time",
+  "salary": 20000,
+  "description": "Nice Job",
+  "requirements": ["Node.js", "PostgressSQL", "Express", "REST APIs"]
+}
+
+###
+
+
+# get listing by Id
+GET {{BASE_URL}}/6851a172201e0770ff6dacdc
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+###
+
+
+
+# get listing by Id
+GET {{BASE_URL}}/685191b0640a2b25e1e76cd3
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+###
+
+
+# deleting element by Id
+DELETE  {{BASE_URL}}/685195a9640a2b25e1e76cd5
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+###
+
+
+# update element by Id
+PATCH  {{BASE_URL}}/685191b0640a2b25e1e76cd3
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "title": "Updated Android Development",
+  "salary": 35000,
+  "description": "Updated Nice Job"
+  
+}
+
+###
