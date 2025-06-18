@@ -58,4 +58,9 @@ const listingSchema = new mongoose.Schema({
 
 const listing = mongoose.model(LISTING_MODEL, listingSchema);
 
+
+
+
+
+// export default listing;
 export default listing;

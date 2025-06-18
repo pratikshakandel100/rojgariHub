@@ -1,0 +1,16 @@
+#merobike from app.js
+@BASE_URL = http://localhost:9000/user
+@TOKEN = 1
+
+# add listing
+POST  {{BASE_URL}}/add
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+    "fullName": "Unisha Khanal",
+    "email": "u@gmail.com",
+    "password": "12345"
+}
+
+###
