@@ -1,11 +1,33 @@
-import { useState } from 'react'
-function App() {
+// import { useState } from 'react'
 
+// // import Homepage from './pages/Homepage.jsx';
+// import Homepage from './pages/HomePage';
+// import SignIn from './pages/Signin.jsx';
+// function App() {
+
+//   return (
+//    <>
+//     <SignIn/>
+//    </>
+//   )
+// }
+
+// export default App;
+// src/App.jsx
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Homepage from "./pages/HomePage";
+import SignIn from "./pages/Signin";
+function App() {
   return (
-   <>
-    <h1>Hello</h1>
-   </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/SignIn" element={<SignIn />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
+
