@@ -26,7 +26,9 @@ const SignIn = () => {
             <a href="#">Forgot your password?</a>
           </div>
 
-          <button type="submit" className="signin-button">Sign In</button>
+          <button className="btn-secondary" onClick={() => setShowSignIn(true)}>Sign In</button>
+
+
 
           <p className="signin-footer">
             Don't have an account?{" "}

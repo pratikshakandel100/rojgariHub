@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SignIn from './Signin.jsx';
+
+
+import Modal from "../Model/Model.jsx"; // adjust path if needed
+
 
 import { 
   Search, 
@@ -29,7 +34,10 @@ const Homepage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [location, setLocation] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showSignIn, setShowSignIn] = useState(false);
+
   const navigate = useNavigate();
+
 
 
   const jobCategories = [
@@ -98,7 +106,9 @@ const Homepage = () => {
 
             <div className="auth-buttons">
               <button className="btn-secondary">Login</button>
-              <button className="btn-secondary" onClick={() => navigate("/Signin")}>Sign In</button>
+              <button className="btn-secondary" onClick={() => setShowSignIn(true)}>Sign In</button>
+
+
               <button className="btn-primary">EmployeeZone</button>
             </div>
 
@@ -326,6 +336,22 @@ const Homepage = () => {
           </div>
         </div>
       </footer>
+      <Modal show={showSignIn} onClose={() => setShowSignIn(false)}>
+      <SignIn />
+      <button
+    onClick={() => setShowSignIn(false)}
+    style={{
+      marginTop: "10px",
+      padding: "8px 16px",
+      backgroundColor: "#eee",
+      border: "none",
+      cursor: "pointer",
+      borderRadius: "5px"
+    }}
+  >
+    Close
+  </button>
+</Modal>
     </div>
   );
 };
