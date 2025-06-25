@@ -1,13 +1,12 @@
 import React from "react";
-import '../style/Login.css'
+import "../style/Login.css";
 
-
-
-
-const Login = () => {
+const Login = ({ switchToRegister, onClose }) => {
   return (
     <div className="login-container">
       <div className="login-box">
+        <button className="modal-close" onClick={onClose}>×</button>
+
         <div className="login-header">
           <h2>Login to RojgariHub</h2>
           <p>Welcome back 👋</p>
@@ -24,15 +23,16 @@ const Login = () => {
             <input type="password" id="login-password" required />
           </div>
 
-          <div className="login-links">
-            <a href="#">Forgot password?</a>
+          <button className="btn-primary login-center-btn">Login</button>
+
+
+          <div className="login-footer">
+            <a href="#" className="forgot-password">Forgot password?</a>
+            <p className="signup-link">
+              New to RojgariHub?{" "}
+              <span className="switch-link" onClick={switchToRegister}>Sign up</span>
+            </p>
           </div>
-
-          <button className="btn-secondary">Login</button>
-
-          <p className="login-footer">
-            New to RojgariHub? <a href="#">Sign up</a>
-          </p>
         </form>
       </div>
     </div>
@@ -40,3 +40,4 @@ const Login = () => {
 };
 
 export default Login;
+

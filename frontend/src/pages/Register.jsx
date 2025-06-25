@@ -1,10 +1,13 @@
 import React from "react";
 import "../style/Register.css";
 
-const Register = () => {
+const Register = ({ onClose, switchToLogin }) => {
+
   return (
     <div className="register-container">
       <div className="register-box">
+        <button className="close-btn" onClick={onClose}>×</button>
+
         <div className="register-header">
           <h2>Register for RojgariHub</h2>
           <p>Join us and explore amazing opportunities 🌱</p>
@@ -41,12 +44,15 @@ const Register = () => {
             <input type="password" id="confirmPassword" name="confirmPassword" required />
           </div>
 
-          <button type="submit" className="btn-theme">Register</button>
+          <button type="submit" className="btn-primary">Register</button>
+
 
           <p className="register-footer">
-            Already have an account?{" "}
-            <a href="#" className="signin-link">Sign In here</a>
+          Already have an account?{" "}
+          <span onClick={switchToLogin} className="signin-link">Sign In here</span>
           </p>
+
+
         </form>
       </div>
     </div>
@@ -54,3 +60,5 @@ const Register = () => {
 };
 
 export default Register;
+
+

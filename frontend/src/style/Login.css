@@ -77,3 +77,40 @@
   font-weight: 500;
   text-decoration: none;
 }
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #EF4444;
+  cursor: pointer;
+}
+
+.login-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.forgot-password {
+  color: #10B981;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.switch-link {
+  color: #FF6B6B;
+  cursor: pointer;
+  font-weight: 600;
+}
+.login-center-btn {
+  display: block;
+  margin: 1rem auto;
+}
+
+
