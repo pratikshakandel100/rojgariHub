@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SignIn from './Signin.jsx';
+
+import Register from "./Register.jsx"; // new import
+import Login from './Login.jsx';
+
 
 
 import Modal from "../Model/Model.jsx"; // adjust path if needed
@@ -35,6 +38,7 @@ const Homepage = () => {
   const [location, setLocation] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
   const navigate = useNavigate();
 
@@ -105,8 +109,9 @@ const Homepage = () => {
             </nav>
 
             <div className="auth-buttons">
-              <button className="btn-secondary">Login</button>
-              <button className="btn-secondary" onClick={() => setShowSignIn(true)}>Sign In</button>
+              <button className="btn-secondary" onClick={() => setShowRegister(true)}>Register</button>
+              <button className="btn-secondary" onClick={() => setShowSignIn(true)}>LogIn</button>
+
 
 
               <button className="btn-primary">EmployeeZone</button>
@@ -336,22 +341,17 @@ const Homepage = () => {
           </div>
         </div>
       </footer>
-      <Modal show={showSignIn} onClose={() => setShowSignIn(false)}>
-      <SignIn />
-      <button
-    onClick={() => setShowSignIn(false)}
-    style={{
-      marginTop: "10px",
-      padding: "8px 16px",
-      backgroundColor: "#eee",
-      border: "none",
-      cursor: "pointer",
-      borderRadius: "5px"
-    }}
-  >
-    Close
-  </button>
+      {/* Sign In Popup */}
+<Modal show={showSignIn} onClose={() => setShowSignIn(false)}>
+  <Login />
 </Modal>
+
+{/* Register Popup */}
+<Modal show={showRegister} onClose={() => setShowRegister(false)}>
+  <Register />
+</Modal>
+
+
     </div>
   );
 };
