@@ -17,12 +17,14 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/HomePage";
+import Joblist from "./pages/Joblist"
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/jobs" element={<Joblist/>}/>
         
       </Routes>
     </Router>
