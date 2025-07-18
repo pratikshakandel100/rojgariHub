@@ -55,7 +55,7 @@ export default function Sidebar({ activeTab, setActiveTab, setSidebarOpen }) {
         })}
       </nav>
 
-      {/* Sign Out Button */}
+      Sign Out Button
       <div className="px-4 pb-4">
         <button
           onClick={handleSignOut}

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Jobsearch() {
   const navigate = useNavigate();
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit } = useForm();
   const [savedJobs, setSavedJobs] = useState(new Set());
   const [showFilters, setShowFilters] = useState(false);
   const [jobs, setJobs] = useState([]);
@@ -28,110 +28,94 @@ export default function Jobsearch() {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Fetch jobs from API
-  const fetchJobs = async (params = searchParams) => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      // Filter out empty values
-      const filteredParams = Object.entries(params).reduce((acc, [key, value]) => {
-        if (value !== '' && value !== false && value !== null && value !== undefined) {
-          acc[key] = value;
+  // Fetch jobs
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const filteredParams = Object.fromEntries(
+          Object.entries(searchParams).filter(([_, v]) => v !== '' && v !== false)
+        );
+        const response = await jobsAPI.getAll(filteredParams);
+        if (response.success) {
+          setJobs(response.jobs || []);
+          setTotalPages(response.totalPages || 1);
+          setCurrentPage(response.currentPage || 1);
+        } else {
+          setError('Failed to fetch jobs');
         }
-        return acc;
-      }, {});
-      
-      const response = await jobsAPI.getAll(filteredParams);
-      
-      if (response.success) {
-        setJobs(response.jobs || []);
-        setTotalPages(response.totalPages || 1);
-        setCurrentPage(response.currentPage || 1);
-      } else {
-        setError('Failed to fetch jobs');
+      } catch (err) {
+        setError(err.message || 'Failed to fetch jobs');
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError(err.message || 'Failed to fetch jobs');
-      console.error('Error fetching jobs:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  // Fetch saved jobs to check which ones are already saved
+    fetchJobs();
+  }, [searchParams]);
+
   const fetchSavedJobs = async () => {
     try {
       const response = await savedJobsAPI.getSavedJobs({ page: 1, limit: 100 });
       if (response.savedJobs) {
-        const savedJobIds = new Set(response.savedJobs.map(savedJob => savedJob.job.id));
-        setSavedJobs(savedJobIds);
+        const savedIds = new Set(response.savedJobs.map((j) => j.job.id));
+        setSavedJobs(savedIds);
       }
-    } catch (error) {
-      console.error('Error fetching saved jobs:', error);
+    } catch (err) {
+      console.error('Error fetching saved jobs:', err);
     }
   };
 
-  // Load jobs and saved jobs on component mount
   useEffect(() => {
-    fetchJobs();
     fetchSavedJobs();
   }, []);
 
   const onSubmit = (data) => {
-    const newSearchParams = {
-      ...searchParams,
+    setSearchParams((prev) => ({
+      ...prev,
       page: 1,
       search: data.jobTitle || '',
-      location: data.location || ''
-    };
-    setSearchParams(newSearchParams);
-    fetchJobs(newSearchParams);
+      location: data.location || '',
+    }));
   };
 
-  const handleFilterChange = (filterType, value) => {
-    const newSearchParams = {
-      ...searchParams,
+  const handleFilterChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setSearchParams((prev) => ({
+      ...prev,
       page: 1,
-      [filterType]: value
-    };
-    setSearchParams(newSearchParams);
-    fetchJobs(newSearchParams);
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   const handlePageChange = (page) => {
-    const newSearchParams = {
-      ...searchParams,
-      page
-    };
-    setSearchParams(newSearchParams);
-    fetchJobs(newSearchParams);
+    setSearchParams((prev) => ({
+      ...prev,
+      page,
+    }));
   };
 
   const toggleSaveJob = async (jobId) => {
     try {
-      const isCurrentlySaved = savedJobs.has(jobId);
-      
-      if (isCurrentlySaved) {
+      const isSaved = savedJobs.has(jobId);
+      if (isSaved) {
         await savedJobsAPI.unsaveJob(jobId);
-        setSavedJobs(prev => {
-          const newSaved = new Set(prev);
-          newSaved.delete(jobId);
-          return newSaved;
+        setSavedJobs((prev) => {
+          const updated = new Set(prev);
+          updated.delete(jobId);
+          return updated;
         });
-        toast.success('Job removed from saved jobs');
+        toast.success('Removed from saved jobs');
       } else {
         await savedJobsAPI.saveJob(jobId);
-        setSavedJobs(prev => {
-          const newSaved = new Set(prev);
-          newSaved.add(jobId);
-          return newSaved;
-        });
-        toast.success('Job saved successfully');
+        setSavedJobs((prev) => new Set(prev).add(jobId));
+        toast.success('Saved job');
       }
     } catch (error) {
-      console.error('Error toggling save job:', error);
-      toast.error(error.message || 'Failed to save/unsave job');
+      console.error(error);
+      toast.error('Failed to save/unsave job');
     }
   };
 
@@ -139,280 +123,151 @@ export default function Jobsearch() {
     try {
       setApplyingJobId(jobId);
       await applicationsAPI.apply(jobId);
-      toast.success('Application submitted successfully!');
-    } catch (error) {
-      console.error('Error applying to job:', error);
-      const errorData = error.response?.data;
-      
-      const errorMessage = errorData?.message || error.message || 'Failed to apply to job';
-      toast.error(errorMessage);
+      toast.success('Application submitted');
+    } catch (err) {
+      toast.error(err?.response?.data?.message || 'Failed to apply');
     } finally {
       setApplyingJobId(null);
     }
   };
 
-  const formatSalary = (salary) => {
-    return salary || 'Salary not specified';
-  };
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
+  const formatSalary = (salary) => salary || 'Salary not specified';
+  const formatDate = (d) => {
+    const date = new Date(d);
     const now = new Date();
-    const diffTime = Math.abs(now - date);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
-    if (diffDays === 1) return '1 day ago';
-    if (diffDays < 7) return `${diffDays} days ago`;
-    if (diffDays < 30) return `${Math.ceil(diffDays / 7)} week${Math.ceil(diffDays / 7) > 1 ? 's' : ''} ago`;
-    return `${Math.ceil(diffDays / 30)} month${Math.ceil(diffDays / 30) > 1 ? 's' : ''} ago`;
+    const diff = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+    if (diff < 1) return 'Today';
+    if (diff === 1) return '1 day ago';
+    if (diff < 7) return `${diff} days ago`;
+    if (diff < 30) return `${Math.floor(diff / 7)} week(s) ago`;
+    return `${Math.floor(diff / 30)} month(s) ago`;
   };
 
   return (
     <div className="space-y-6">
+      {/* Search */}
       <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <input
-                {...register('jobTitle')}
-                type="text"
-                placeholder="Job title, keywords..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-            <div>
-              <input
-                {...register('location')}
-                type="text"
-                placeholder="Location"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
+            <input
+              {...register('jobTitle')}
+              type="text"
+              placeholder="Job title, keywords..."
+              className="w-full px-4 py-2 border rounded-lg"
+            />
+            <input
+              {...register('location')}
+              type="text"
+              placeholder="Location"
+              className="w-full px-4 py-2 border rounded-lg"
+            />
             <div className="flex space-x-2">
-              <button
-                type="submit"
-                className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
-              >
-                <Search className="h-5 w-5 inline mr-2" />
+              <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-lg flex items-center">
+                <Search className="h-5 w-5 mr-2" />
                 Search
               </button>
               <button
                 type="button"
                 onClick={() => setShowFilters(!showFilters)}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 border rounded-lg"
               >
                 <Filter className="h-5 w-5" />
               </button>
             </div>
           </div>
+
+          {/* Filters */}
+          {showFilters && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+              <select name="type" onChange={handleFilterChange} className="border rounded-lg px-4 py-2">
+                <option value="">Job Type</option>
+                <option value="Full Time">Full Time</option>
+                <option value="Part Time">Part Time</option>
+                <option value="Contract">Contract</option>
+              </select>
+              <select name="category" onChange={handleFilterChange} className="border rounded-lg px-4 py-2">
+                <option value="">Category</option>
+                <option value="IT">IT</option>
+                <option value="Finance">Finance</option>
+                <option value="Marketing">Marketing</option>
+              </select>
+              <select name="experience" onChange={handleFilterChange} className="border rounded-lg px-4 py-2">
+                <option value="">Experience</option>
+                <option value="Entry">Entry</option>
+                <option value="Mid">Mid</option>
+                <option value="Senior">Senior</option>
+              </select>
+              <label className="flex items-center gap-2">
+                <input type="checkbox" name="isRemote" onChange={handleFilterChange} />
+                Remote
+              </label>
+            </div>
+          )}
         </form>
       </div>
 
+      {/* Job Results */}
       <div className="space-y-4">
         {loading ? (
           <div className="flex justify-center items-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
-            <span className="ml-2 text-gray-600">Loading jobs...</span>
+            <span className="ml-2">Loading jobs...</span>
           </div>
         ) : error ? (
-          <div className="text-center py-12">
-            <div className="text-red-600 mb-4">{error}</div>
-            <button 
-              onClick={() => fetchJobs()}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Try Again
-            </button>
-          </div>
+          <div className="text-center text-red-500">{error}</div>
         ) : jobs.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="text-gray-600 mb-4">No jobs found matching your criteria.</div>
-            <button 
-              onClick={() => {
-                setSearchParams({
-                  page: 1,
-                  limit: 10,
-                  search: '',
-                  location: '',
-                  type: '',
-                  category: '',
-                  experience: '',
-                  isRemote: false
-                });
-                fetchJobs({
-                  page: 1,
-                  limit: 10
-                });
-              }}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Clear Filters
-            </button>
-          </div>
+          <div className="text-center text-gray-600 py-12">No jobs found</div>
         ) : (
-          <>
-            {jobs.map((job) => (
-              <div key={job.id} className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center overflow-hidden">
-                  {job.companyImage ? (
-                    <img 
-                      src={`http://localhost:5000/api${job.companyImage}`} 
-                      alt={job.employee?.companyName || 'Company'}
-                      className="w-full h-full object-cover rounded-lg"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
+          jobs.map((job) => (
+            <div key={job.id} className="bg-white p-6 rounded-lg border shadow-sm">
+              <div className="flex justify-between">
+                <div>
+                  <h3 className="text-lg font-bold">{job.title}</h3>
+                  <p className="text-sm text-gray-600">{job.employee?.companyName}</p>
+                  <div className="text-sm text-gray-500 flex gap-4 mt-2">
+                    <span><MapPin className="inline w-4 h-4" /> {job.location}</span>
+                    <span><DollarSign className="inline w-4 h-4" /> {formatSalary(job.salary)}</span>
+                    <span><Clock className="inline w-4 h-4" /> {formatDate(job.createdAt)}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => toggleSaveJob(job.id)}>
+                    <Heart
+                      className={`w-5 h-5 ${savedJobs.has(job.id) ? 'text-red-500 fill-current' : 'text-gray-400'}`}
                     />
-                  ) : null}
-                  <span 
-                    className="text-blue-600 font-semibold text-lg w-full h-full flex items-center justify-center"
-                    style={{ display: job.companyImage ? 'none' : 'flex' }}
+                  </button>
+                  <button
+                    onClick={() => handleApply(job.id)}
+                    disabled={applyingJobId === job.id}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg"
                   >
-                    {job.employee?.companyName?.charAt(0) || 'C'}
-                  </span>
-                </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-1">{job.title}</h3>
-                      <p className="text-gray-600 mb-2">{job.employee?.companyName || 'Company'}</p>
-                      <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-                        <div className="flex items-center">
-                          <MapPin className="h-4 w-4 mr-1" />
-                          {job.location}
-                          {job.isRemote && (
-                            <span className="ml-2 px-2 py-1 bg-green-100 text-green-800 rounded text-xs">
-                              Remote
-                            </span>
-                          )}
-                        </div>
-                        <div className="flex items-center">
-                          <DollarSign className="h-4 w-4 mr-1" />
-                          {formatSalary(job.salary)}
-                        </div>
-                        <div className="flex items-center">
-                          <Clock className="h-4 w-4 mr-1" />
-                          {formatDate(job.createdAt)}
-                        </div>
-                      </div>
-                      {job.skills && job.skills.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mt-3">
-                          {job.skills.slice(0, 3).map((skill, index) => (
-                            <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                              {skill}
-                            </span>
-                          ))}
-                          {job.skills.length > 3 && (
-                            <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
-                              +{job.skills.length - 3} more
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <button 
-                      onClick={() => toggleSaveJob(job.id)}
-                      className={`p-2 rounded-full transition-colors ${
-                        savedJobs.has(job.id)
-                          ? 'text-red-500 bg-red-50'
-                          : 'text-gray-400 hover:text-red-500 hover:bg-red-50'
-                      }`}
-                    >
-                      <Heart className={`h-5 w-5 ${savedJobs.has(job.id) ? 'fill-current' : ''}`} />
-                    </button>
-                    <button 
-                      onClick={() => handleApply(job.id)}
-                      disabled={applyingJobId === job.id}
-                      className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {applyingJobId === job.id ? (
-                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      ) : null}
-                      Apply Now
-                    </button>
-                  </div>
+                    {applyingJobId === job.id ? <Loader2 className="animate-spin w-4 h-4 mr-2 inline" /> : null}
+                    Apply
+                  </button>
                 </div>
               </div>
-            ))}
-            
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="flex justify-center items-center space-x-2 mt-8">
-                <button
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className="px-3 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-                >
-                  Previous
-                </button>
-                
-                {[...Array(totalPages)].map((_, index) => {
-                  const page = index + 1;
-                  return (
-                    <button
-                      key={page}
-                      onClick={() => handlePageChange(page)}
-                      className={`px-3 py-2 border rounded-lg ${
-                        currentPage === page
-                          ? 'bg-blue-600 text-white border-blue-600'
-                          : 'border-gray-300 hover:bg-gray-50'
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  );
-                })}
-                
-                <button
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  className="px-3 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-                >
-                  Next
-                </button>
-              </div>
-            )}
-          </>
+            </div>
+          ))
         )}
       </div>
 
-      {/* Resume Upload Modal */}
-      {showResumeModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <div className="text-center">
-              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100 mb-4">
-                <User className="h-6 w-6 text-yellow-600" />
-              </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Resume Required
-              </h3>
-              <p className="text-sm text-gray-500 mb-6">
-                Please upload your resume first on your profile before applying for jobs.
-              </p>
-              <div className="flex space-x-3">
-                <button
-                  onClick={() => setShowResumeModal(false)}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => {
-                    setShowResumeModal(false);
-                    navigate('/profile');
-                  }}
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center"
-                >
-                  <User className="h-4 w-4 mr-2" />
-                  Go to Profile
-                </button>
-              </div>
-            </div>
-          </div>
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center gap-2 mt-8">
+          {[...Array(totalPages)].map((_, i) => {
+            const page = i + 1;
+            return (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`px-3 py-1 border rounded-lg ${
+                  currentPage === page ? 'bg-blue-600 text-white' : 'hover:bg-gray-100'
+                }`}
+              >
+                {page}
+              </button>
+            );
+          })}
         </div>
       )}
     </div>

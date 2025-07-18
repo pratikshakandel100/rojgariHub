@@ -931,7 +931,7 @@ const BoostPage = () => {
           >
             All Boosts
           </button>
-          <button
+          {/* <button
             onClick={() => setActiveTab('create')}
             className={`py-2 px-1 border-b-2 font-medium text-sm ${
               activeTab === 'create'
@@ -940,7 +940,7 @@ const BoostPage = () => {
             }`}
           >
             Create Boost
-          </button>
+          </button> */}
         </nav>
       </div>
 
