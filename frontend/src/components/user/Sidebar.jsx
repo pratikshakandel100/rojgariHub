@@ -56,7 +56,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }) => {
       badge: unreadCount > 0 ? unreadCount : null
     },
     { icon: User, label: 'Profile', path: '/user/profile' },
-    { icon: Settings, label: 'Settings', path: '/user/settings' }
+    // { icon: Settings, label: 'Settings', path: '/user/settings' }
   ];
 
   return (
@@ -125,7 +125,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }) => {
         </nav>
         
         {/* Logout button */}
-        <div className="absolute bottom-6 left-0 right-0 px-3">
+        {/* <div className="absolute bottom-6 left-0 right-0 px-3">
           <button
             onClick={handleLogout}
             className="flex items-center w-full px-3 py-2 text-sm font-medium text-red-600 rounded-lg hover:bg-red-50 transition-colors duration-200"
@@ -133,7 +133,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }) => {
             <LogOut size={18} className="mr-3" />
             Sign Out
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );
