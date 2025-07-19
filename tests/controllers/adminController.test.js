@@ -1,8 +1,8 @@
-const { getDashboardStats } = require('../../controllers/adminController');
-const { Job, Employee, Application } = require('../../models');
+const { getDashboardStats } = require('../../backend/controllers/adminController');
+const { Job, Employee, Application } = require('../../backend/models');
 const { mockRequest, mockResponse } = require('@jest-mock/express');
 
-jest.mock('../../models/index');
+jest.mock('@models');
 
 describe('Admin Controller', () => {
   beforeEach(() => {

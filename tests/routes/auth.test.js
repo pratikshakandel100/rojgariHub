@@ -1,10 +1,8 @@
 const request = require('supertest');
-const app = require('../../app');
-const { Admin } = require('../../models');
+const app = require('@app');
+const { Admin } = require('@models');
 
-jest.mock('../../models');
-
-describe('Auth Controller', () => {
+describe('POST /auth/admin/login', () => {
   it('should login admin', async () => {
     Admin.findOne.mockResolvedValue({
       id: 1,
@@ -12,11 +10,11 @@ describe('Auth Controller', () => {
       comparePassword: jest.fn().mockResolvedValue(true)
     });
 
-    const res = await request(app)
+    const response = await request(app)
       .post('/auth/admin/login')
-      .send({ email: 'admin@test.com', password: 'password' });
+      .send({ email: 'admin@test.com', password: 'password123' });
 
-    expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty('token');
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('token');
   });
 });

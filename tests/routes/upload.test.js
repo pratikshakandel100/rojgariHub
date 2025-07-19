@@ -1,8 +1,8 @@
 const request = require('supertest');
-const app = require('../../app');  // Make sure this path is correct
+const app = require('../../frontend/src/app');  // Make sure this path is correct
 const path = require('path');
 
-jest.mock('../../models');
+jest.mock('@models');
 
 describe('File Upload', () => {
   it('should upload a file', async () => {
