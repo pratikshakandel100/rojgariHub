@@ -1,5 +1,5 @@
 const { getDashboardStats } = require('../../controllers/adminController');
-const { Job, Employee, Application } = require('../../models/index');
+const { Job, Employee, Application } = require('../../models');
 const { mockRequest, mockResponse } = require('@jest-mock/express');
 
 jest.mock('../../models/index');

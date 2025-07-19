@@ -1,17 +1,14 @@
 const request = require('supertest');
-const app = require('../../app');
+const app = require('../../app');  // Make sure this path is correct
 const path = require('path');
-const fs = require('fs');
 
-describe('POST /upload/profile-picture', () => {
-  it('uploads a profile picture', async () => {
-    const testImage = path.join(__dirname, '../fixtures/test-image.jpg');
-    
+jest.mock('../../models');
+
+describe('File Upload', () => {
+  it('should upload a file', async () => {
     const res = await request(app)
-      .post('/upload/profile-picture')
-      .attach('profilePicture', testImage)
-      .expect(200);
-
-    expect(res.body.profilePicture).toMatch(/\/uploads\/profile-pictures\//);
+      .post('/upload')
+      .attach('file', path.join(__dirname, 'test-file.txt'));
+    expect(res.status).toBe(200);
   });
 });

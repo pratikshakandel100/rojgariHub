@@ -1,20 +1,22 @@
-const mockModel = {
-  findOne: jest.fn(),
-  findAll: jest.fn(),
-  create: jest.fn(),
-  update: jest.fn(),
-  destroy: jest.fn(),
-  count: jest.fn()
-};
-
 module.exports = {
   sequelize: {
-    define: () => mockModel,
+    define: jest.fn(() => ({
+      findOne: jest.fn(),
+      findAll: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+      destroy: jest.fn(),
+      count: jest.fn()
+    })),
     fn: jest.fn(),
     col: jest.fn(),
     literal: jest.fn()
   },
-  Admin: mockModel,
-  Job: mockModel,
-  // Add other models here
+  Admin: {
+    findOne: jest.fn(),
+    create: jest.fn()
+  },
+  Job: {
+    findAndCountAll: jest.fn()
+  }
 };

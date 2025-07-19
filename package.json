@@ -8,7 +8,9 @@
     "backend": "cd backend && npm start",
     "frontend": "cd frontend && npm start",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
-    "test": "jest"
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles",
+    "test:watch": "cross-env NODE_ENV=test jest --watchAll",
+    "test:coverage": "cross-env NODE_ENV=test jest --coverage"
   },
   "author": "Pratiksha Kandel",
   "license": "ISC",
@@ -22,6 +24,7 @@
     "@tailwindcss/postcss": "^4.1.10",
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
     "jest": "^30.0.4",
     "postcss": "^8.5.6",
     "sequelize-mock": "^0.10.2",

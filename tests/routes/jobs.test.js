@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../../app');
-const { Job } = require('../../models/index');
+const { Job } = require('../../models');
 
 jest.mock('../../models/index');
 
