@@ -233,13 +233,13 @@ const Companies = () => {
               </div>
 
               <div className="flex space-x-2">
-                <button 
+                {/* <button 
                   onClick={() => handleViewCompany(company)}
                   className="flex-1 flex items-center justify-center px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"
                 >
                   <Eye className="w-4 h-4 mr-1" />
                   View
-                </button>
+                </button> */}
                 <button 
                   onClick={() => handleEditCompany(company)}
                   className="flex-1 flex items-center justify-center px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"

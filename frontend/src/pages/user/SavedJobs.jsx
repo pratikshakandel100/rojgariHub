@@ -114,7 +114,7 @@ export default function SavedJobs() {
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center overflow-hidden">
                 {job.companyImage ? (
                   <img 
-                    src={`http://localhost:5000/api${job.companyImage}`} 
+                    src={`http://localhost:3000/api${job.companyImage}`} 
                     alt={job.company || 'Company'}
                     className="w-full h-full object-cover rounded-lg"
                     onError={(e) => {

@@ -94,7 +94,7 @@ const UserHeader = ({ setSidebarOpen }) => {
             >
               {userProfile?.profilePicture ? (
                 <img
-                  src={`http://localhost:5000/api${userProfile.profilePicture}`}
+                  src={`http://localhost:3000/api${userProfile.profilePicture}`}
                   alt="Profile"
                   className="w-8 h-8 rounded-full object-cover border border-gray-200"
                 />

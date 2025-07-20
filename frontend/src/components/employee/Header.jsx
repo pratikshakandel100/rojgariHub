@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Briefcase, Bell, User, LogOut, Settings } from 'lucide-react';
+import { Briefcase, Bell, User, LogOut } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
@@ -51,7 +51,7 @@ const Header = ({ companyProfile }) => {
         <div className="flex items-center space-x-4">
           <Briefcase className="h-8 w-8 text-blue-600" />
           <h1 className="text-2xl font-bold text-gray-900">RojgariHub</h1>
-        <span className="text-sm text-gray-500 bg-blue-50 px-2 py-1 rounded">Employee</span>
+          <span className="text-sm text-gray-500 bg-blue-50 px-2 py-1 rounded">Employee</span>
         </div>
         <div className="flex items-center space-x-4">
           {/* Notifications */}
@@ -75,7 +75,7 @@ const Header = ({ companyProfile }) => {
             >
               {userProfile?.profilePicture ? (
                 <img
-                  src={`http://localhost:5000/api${userProfile.profilePicture}`}
+                  src={`http://localhost:3000/api${userProfile.profilePicture}`}
                   alt="Profile"
                   className="h-8 w-8 rounded-full object-cover border border-gray-200"
                 />
@@ -85,11 +85,11 @@ const Header = ({ companyProfile }) => {
                 </div>
               )}
               <span className="text-sm font-medium hidden sm:block">
-                 {user?.firstName && user?.lastName 
-                   ? `${user.firstName} ${user.lastName}` 
-                   : user?.displayName || user?.name || companyProfile?.name || 'Employee'
-                 }
-               </span>
+                {user?.firstName && user?.lastName 
+                  ? `${user.firstName} ${user.lastName}` 
+                  : user?.displayName || user?.name || companyProfile?.name || 'Employee'
+                }
+              </span>
             </button>
             
             {dropdownOpen && (
@@ -104,16 +104,7 @@ const Header = ({ companyProfile }) => {
                   <User size={16} className="mr-2" />
                   Profile
                 </button>
-                <button
-                  onClick={() => {
-                    setDropdownOpen(false);
-                    navigate('/employee/settings');
-                  }}
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                >
-                  <Settings size={16} className="mr-2" />
-                  Settings
-                </button>
+                {/* Settings removed */}
                 <button
                   onClick={handleLogout}
                   className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"

@@ -153,9 +153,9 @@ const OverviewComponent = () => {
           <div className="p-6 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-gray-900">Recent Jobs</h3>
-              <button className="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
+              {/* <button className="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
                 View all
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="p-6">
@@ -195,9 +195,9 @@ const OverviewComponent = () => {
           <div className="p-6 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-gray-900">Recent Applications</h3>
-              <button className="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
+              {/* <button className="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
                 View all
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="p-6">

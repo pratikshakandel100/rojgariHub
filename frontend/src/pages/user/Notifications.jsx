@@ -15,11 +15,12 @@ const Notifications = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:5000/api/notifications?page=${page}&limit=10&unreadOnly=${unreadOnly}`,
+        `http://localhost:3000/api/notifications?page=${page}&limit=10&unreadOnly=${unreadOnly}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
       );
+      console.log(`MyRes-->${response}`);
       
       if (response.data.success) {
         setNotifications(response.data.notifications);
@@ -37,7 +38,7 @@ const Notifications = () => {
   const markAsRead = async (notificationId) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/notifications/${notificationId}/read`,
+        `http://localhost:3000/api/notifications/${notificationId}/read`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` }
@@ -57,7 +58,7 @@ const Notifications = () => {
   const markAllAsRead = async () => {
     try {
       await axios.put(
-        'http://localhost:5000/api/notifications/mark-all-read',
+        'http://localhost:3000/api/notifications/mark-all-read',
         {},
         {
           headers: { Authorization: `Bearer ${token}` }
@@ -77,7 +78,7 @@ const Notifications = () => {
   const deleteNotification = async (notificationId) => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/notifications/${notificationId}`,
+        `http://localhost:3000/api/notifications/${notificationId}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }

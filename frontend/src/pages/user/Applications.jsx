@@ -174,7 +174,7 @@ export default function Applications() {
                         <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
                           {app.job?.companyImage ? (
                             <img 
-                              src={`http://localhost:5000/api${app.job.companyImage}`} 
+                              src={`http://localhost:3000/api${app.job.companyImage}`} 
                               alt={app.job?.employee?.companyName}
                               className="w-full h-full object-cover rounded-lg"
                               onError={(e) => {

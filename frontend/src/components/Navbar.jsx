@@ -21,8 +21,8 @@ const Navbar = () => {
             </div>
             {/* Desktop Navigation */}
             <nav className="hidden md:flex md:ml-10 space-x-8">
-              <a href="#" className="text-gray-500 hover:text-gray-700 whitespace-nowrap">Find Jobs</a>
-              <a href="#" className="text-gray-500 hover:text-gray-700 whitespace-nowrap">Browse Companies</a>
+              {/* <a href="#" className="text-gray-500 hover:text-gray-700 whitespace-nowrap">Find Jobs</a>
+              <a href="#" className="text-gray-500 hover:text-gray-700 whitespace-nowrap">Browse Companies</a> */}
             </nav>
           </div>
 

@@ -110,7 +110,7 @@ const EmployeeProfile = () => {
             <div className="relative">
               {profileImage || currentProfilePicture ? (
                 <img
-                  src={profileImage ? URL.createObjectURL(profileImage) : `http://localhost:5000/api${currentProfilePicture}`}
+                  src={profileImage ? URL.createObjectURL(profileImage) : `http://localhost:3000/api${currentProfilePicture}`}
                   alt="Profile"
                   className="h-16 w-16 object-cover rounded-full border-2 border-gray-200"
                 />

@@ -184,7 +184,7 @@ export default function Profile() {
             <div className="shrink-0 relative">
               <img
                 className="h-20 w-20 object-cover rounded-full border-2 border-gray-200"
-                src={profileImage ? URL.createObjectURL(profileImage) : (currentProfilePicture ? `http://localhost:5000/api${currentProfilePicture}` : "https://via.placeholder.com/80")}
+                src={profileImage ? URL.createObjectURL(profileImage) : (currentProfilePicture ? `http://localhost:3000/api${currentProfilePicture}` : "https://via.placeholder.com/80")}
                 alt="Current profile photo"
               />
               {uploadingImage && (
@@ -412,7 +412,7 @@ export default function Profile() {
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-700">Current resume uploaded</span>
                   <a
-                    href={`http://localhost:5000/api${currentResume}`}
+                    href={`http://localhost:3000/api${currentResume}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 text-sm font-medium"

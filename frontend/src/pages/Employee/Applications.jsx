@@ -12,6 +12,8 @@ const Applications = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
+  console.log(applications)
+
   useEffect(() => {
     fetchApplications();
     // Set job filter from URL params if present
@@ -137,7 +139,7 @@ const Applications = () => {
                     <div className="relative">
                       {application.jobSeeker?.profilePicture ? (
                         <img
-                          src={`http://localhost:5000/api${application.jobSeeker.profilePicture}`}
+                          src={`http://localhost:3000/api${application.jobSeeker.profilePicture}`}
                           alt={`${application.jobSeeker?.firstName} ${application.jobSeeker?.lastName}`}
                           className="h-16 w-16 rounded-full object-cover border-2 border-gray-200"
                         />
@@ -248,7 +250,7 @@ const Applications = () => {
                    <div className="flex items-center space-x-2">
                      {application.jobSeeker?.resume && (
                        <a
-                         href={application.jobSeeker.resume}
+                         href={`http://localhost:3000/api${application.jobSeeker.resume}`}
                          target="_blank"
                          rel="noopener noreferrer"
                          className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"

@@ -45,13 +45,13 @@ const AdminSidebar = ({ sidebarOpen, setSidebarOpen }) => {
     { icon: Building2, label: 'Companies', path: '/admin/companies' },
     { icon: Zap, label: 'Boost Requests', path: '/admin/boost' },
     { icon: TrendingUp, label: 'Analytics', path: '/admin/analytics' },
-    { 
-      icon: Bell, 
-      label: 'Notifications', 
-      path: '/admin/notifications',
-      badge: unreadCount > 0 ? unreadCount : null
-    },
-    { icon: Settings, label: 'Settings', path: '/admin/settings' }
+    // { 
+    //   icon: Bell, 
+    //   label: 'Notifications', 
+    //   path: '/admin/notifications',
+    //   badge: unreadCount > 0 ? unreadCount : null
+    // },
+    // { icon: Settings, label: 'Settings', path: '/admin/settings' }
   ];
 
   return (
