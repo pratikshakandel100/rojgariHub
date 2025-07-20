@@ -22,6 +22,14 @@ const Notification = testSequelize.define('Notification', {
     type: DataTypes.ENUM('admin', 'employee', 'jobseeker'),
     allowNull: false
   },
+  senderId: {
+    type: DataTypes.UUID,
+    allowNull: true
+  },
+  senderType: {
+    type: DataTypes.ENUM('admin', 'employee', 'jobseeker', 'system'),
+    allowNull: true
+  },
   type: {
     type: DataTypes.ENUM(
       'application_received',
@@ -44,6 +52,14 @@ const Notification = testSequelize.define('Notification', {
   isRead: {
     type: DataTypes.BOOLEAN,
     defaultValue: false
+  },
+  relatedEntityId: {
+    type: DataTypes.UUID,
+    allowNull: true
+  },
+  relatedEntityType: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
 }, {
   tableName: 'notifications',

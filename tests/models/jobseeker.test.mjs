@@ -75,6 +75,29 @@ const JobSeeker = testSequelize.define('JobSeeker', {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 'jobseeker'
+  },
+  // Add optional profile fields
+  bio: {
+    type: DataTypes.TEXT,
+    allowNull: true
+  },
+  location: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  skills: {
+    type: DataTypes.JSON,
+    allowNull: true,
+    defaultValue: []
+  },
+  education: {
+    type: DataTypes.JSON,
+    allowNull: true,
+    defaultValue: []
+  },
+  resume: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
 }, {
   tableName: 'job_seekers',
@@ -260,6 +283,7 @@ describe('🧪 JobSeeker Model Tests', () => {
     expect(jobSeeker.bio).toBe('Experienced software developer');
     expect(jobSeeker.location).toBe('San Francisco');
     expect(jobSeeker.skills).toEqual(['JavaScript', 'React', 'Node.js']);
+    expect(jobSeeker.education).toEqual([{ degree: 'BSc Computer Science', university: 'Stanford' }]);
     expect(jobSeeker.resume).toBe('resumes/john-doe.pdf');
   });
 });

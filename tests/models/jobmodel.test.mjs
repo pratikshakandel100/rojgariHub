@@ -67,6 +67,24 @@ const Job = testSequelize.define('Job', {
   applicationsCount: {
     type: DataTypes.INTEGER,
     defaultValue: 0
+  },
+  // Add the missing fields
+  salary: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  companyImage: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  applicationDeadline: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
+  skills: {
+    type: DataTypes.JSON,
+    allowNull: true,
+    defaultValue: []
   }
 }, {
   tableName: 'jobs',
@@ -114,9 +132,6 @@ describe('🧪 Job Model Tests', () => {
       location: 'Remote',
       type: 'Remote',
       salary: '$90,000 - $110,000',
-      category: 'Design',
-      experience: '5+ years',
-      skills: ['UI/UX', 'Wireframing', 'Accessibility'],
       isRemote: true,
       isFeatured: true,
       companyImage: 'company-logo.png'

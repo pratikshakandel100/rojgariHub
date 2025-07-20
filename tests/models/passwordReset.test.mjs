@@ -29,25 +29,33 @@ const PasswordReset = testSequelize.define('PasswordReset', {
   token: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
+    defaultValue: () => crypto.randomBytes(32).toString('hex')
   },
   expiresAt: {
     type: DataTypes.DATE,
-    allowNull: false
+    allowNull: false,
+    defaultValue: () => new Date(Date.now() + 60 * 60 * 1000) // 1 hour from now
   },
   isUsed: {
     type: DataTypes.BOOLEAN,
     defaultValue: false
+  },
+  usedAt: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
+  ipAddress: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  userAgent: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
 }, {
   tableName: 'password_resets',
-  timestamps: true,
-  hooks: {
-    beforeCreate: (passwordReset) => {
-      passwordReset.token = crypto.randomBytes(32).toString('hex');
-      passwordReset.expiresAt = new Date(Date.now() + 60 * 60 * 1000);
-    }
-  }
+  timestamps: true
 });
 
 // Add instance methods
@@ -145,6 +153,11 @@ describe('🧪 PasswordReset Model Tests', () => {
   });
 
   test('should validate email format', async () => {
+    await expect(PasswordReset.create({
+      email: 'invalid-email',
+      userType: 'Employee'
+    })).rejects.toThrow();
+
     const reset = await PasswordReset.create({
       email: 'valid.email@example.com',
       userType: 'Employee'
@@ -153,7 +166,7 @@ describe('🧪 PasswordReset Model Tests', () => {
     expect(reset.email).toBe('valid.email@example.com');
   });
 
-  test('should set expiry to 1 hour from creation', async () => {
+  test('should set expiry to 1 hour from creation by default', async () => {
     const beforeCreation = new Date();
     const reset = await PasswordReset.create({
       email: 'expiry@example.com',
