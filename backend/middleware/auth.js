@@ -1,4 +1,5 @@
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken'; 
+
 import { Admin, Employee, JobSeeker } from '../models/index.js';
 
 import dotenv from 'dotenv';
