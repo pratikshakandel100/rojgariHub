@@ -5,11 +5,11 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch server.js",
+    "dev": "nodemon server.js",
     "migrate:notifications": "node scripts/migrate-notifications.js",
     "reset:database": "node scripts/reset-database.js",
-    "admin-create": "node scripts/create-admin.js",
-    "boost-plans": "node scripts/seed-boost-plans.js"
+    "create:admin": "node scripts/create-admin.js",
+    "seed:boost-plans": "node scripts/seed-boost-plans.js"
   },
   "dependencies": {
     "express": "^4.18.2",

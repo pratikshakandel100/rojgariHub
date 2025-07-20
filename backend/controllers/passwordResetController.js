@@ -73,7 +73,7 @@ export const sendPasswordResetEmail = async (req, res) => {
 
     // Send email
     const transporter = createEmailTransporter();
-    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${passwordReset.token}`;
+    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:5000'}/reset-password?token=${passwordReset.token}`;
 
     const mailOptions = {
       from: process.env.SMTP_FROM || 'noreply@rojgarhub.com',
@@ -147,7 +147,7 @@ export const resendPasswordResetEmail = async (req, res) => {
 
     // Resend email
     const transporter = createEmailTransporter();
-    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${passwordReset.token}`;
+    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:5000'}/reset-password?token=${passwordReset.token}`;
 
     const mailOptions = {
       from: process.env.SMTP_FROM || 'noreply@rojgarhub.com',
