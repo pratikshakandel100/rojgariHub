@@ -22,8 +22,8 @@ const UserView = ({ userId }) => {
   // Mock user data - in real app, this would come from API
   const userData = {
     id: userId || "1",
-    name: "Sarah Johnson",
-    email: "sarah.johnson@email.com",
+    name: "Sarah First Nameson",
+    email: "sarah.First Nameson@email.com",
     phone: "+1 (555) 123-4567",
     location: "San Francisco, CA",
     profileImage: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400",
@@ -84,11 +84,11 @@ const UserView = ({ userId }) => {
       "Google Cloud Platform Associate"
     ],
     socialLinks: {
-      linkedin: "https://linkedin.com/in/sarahjohnson",
-      github: "https://github.com/sarahjohnson",
-      portfolio: "https://sarahjohnson.dev"
+      linkedin: "https://linkedin.com/in/sarahFirst Nameson",
+      github: "https://github.com/sarahFirst Nameson",
+      portfolio: "https://sarahFirst Nameson.dev"
     },
-    resumeUrl: "/resume/sarah-johnson-resume.pdf",
+    resumeUrl: "/resume/sarah-First Nameson-resume.pdf",
     joinDate: "January 2024",
   };
 

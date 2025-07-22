@@ -1,32 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Menu, Bell, User, LogOut, Settings } from 'lucide-react';
+import { Menu, User, LogOut } from 'lucide-react'; // Removed Settings icon
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
 
 const AdminHeader = ({ setSidebarOpen }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [unreadCount, setUnreadCount] = useState(0);
   const { user, logout, token } = useAuth();
   const navigate = useNavigate();
 
-  const fetchUnreadCount = async () => {
-    try {
-      const response = await api.get('/notifications/unread-count');
-      if (response.success) {
-        setUnreadCount(response.unreadCount);
-      }
-    } catch (error) {
-      console.error('Error fetching unread count:', error);
-    }
-  };
-
   useEffect(() => {
-    if (token) {
-      fetchUnreadCount();
-      const interval = setInterval(fetchUnreadCount, 30000);
-      return () => clearInterval(interval);
-    }
+    // If there are other token-related side effects, keep them here
   }, [token]);
 
   const handleLogout = () => {
@@ -50,19 +34,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
         
         {/* Right side */}
         <div className="flex items-center space-x-4">
-          {/* Notifications */}
-          <button 
-            onClick={() => navigate('/admin/notifications')}
-            className="relative text-gray-500 hover:text-gray-700"
-          >
-            <Bell size={20} />
-            {unreadCount > 0 && (
-              <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                {unreadCount > 99 ? '99+' : unreadCount}
-              </span>
-            )}
-          </button>
-          
           {/* User dropdown */}
           <div className="relative">
             <button
@@ -82,16 +53,7 @@ const AdminHeader = ({ setSidebarOpen }) => {
             
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                <button
-                  onClick={() => {
-                    setDropdownOpen(false);
-                    navigate('/admin/settings');
-                  }}
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                >
-                  <Settings size={16} className="mr-2" />
-                  Settings
-                </button>
+                {/* Settings button has been removed from here */}
                 <button
                   onClick={handleLogout}
                   className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
