@@ -154,7 +154,7 @@ export default function Register() {
                   value={formData.firstName}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-base"
-                  placeholder="John"
+                  placeholder="First Name"
                   required
                 />
               </div>
@@ -169,7 +169,7 @@ export default function Register() {
                   value={formData.lastName}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-base"
-                  placeholder="Doe"
+                  placeholder="Last Name"
                   required
                 />
               </div>
@@ -187,7 +187,7 @@ export default function Register() {
                 value={formData.email}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-base"
-                placeholder="john@example.com"
+                placeholder="First Name@example.com"
                 required
               />
             </div>

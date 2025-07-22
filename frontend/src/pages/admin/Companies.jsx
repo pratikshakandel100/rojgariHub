@@ -33,7 +33,7 @@ const Companies = () => {
         ...(searchTerm && { search: searchTerm }),
         ...(filterStatus !== 'all' && { status: filterStatus })
       };
-      
+
       const response = await adminAPI.getCompanies(params);
       setCompanies(response.companies);
       setTotalCompanies(response.totalCompanies);
@@ -88,10 +88,6 @@ const Companies = () => {
     });
   };
 
-  const handleDeleteCompany = (companyId) => {
-    setCompanies(companies.filter(company => company.id !== companyId));
-  };
-
   const closeModal = () => {
     setSelectedCompany(null);
     setEditingCompany(null);
@@ -106,8 +102,8 @@ const Companies = () => {
   };
 
   const handleSaveChanges = () => {
-    setCompanies(companies.map(company => 
-      company.id === editingCompany.id 
+    setCompanies(companies.map(company =>
+      company.id === editingCompany.id
         ? { ...company, ...editFormData }
         : company
     ));
@@ -188,8 +184,8 @@ const Companies = () => {
           <Building className="w-12 h-12 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">No companies found</h3>
           <p className="text-gray-600 max-w-md mx-auto">
-            {searchTerm || filterStatus ? 
-              "Try adjusting your search or filter to find what you're looking for." : 
+            {searchTerm || filterStatus ?
+              "Try adjusting your search or filter to find what you're looking for." :
               "There are no companies registered in the system yet."}
           </p>
         </div>
@@ -213,7 +209,7 @@ const Companies = () => {
                   </span>
                 </div>
               </div>
-              
+
               <div className="space-y-2 mb-4">
                 <p className="text-sm text-gray-600">
                   <span className="font-medium">Employees:</span> {company.employees || 'N/A'}
@@ -232,14 +228,7 @@ const Companies = () => {
                 </p>
               </div>
 
-              <div className="flex space-x-2">
-                <button 
-                  onClick={() => handleViewCompany(company)}
-                  className="flex-1 flex items-center justify-center px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"
-                >
-                  <Eye className="w-4 h-4 mr-1" />
-                  View
-                </button>
+              {/* <div className="flex space-x-2">
                 <button 
                   onClick={() => handleEditCompany(company)}
                   className="flex-1 flex items-center justify-center px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"
@@ -247,14 +236,24 @@ const Companies = () => {
                   <Edit className="w-4 h-4 mr-1" />
                   Edit
                 </button>
-               
+                
                 <button 
                   onClick={() => handleStatusToggle(company._id, !company.isActive)}
                   className={`flex items-center justify-center px-3 py-2 text-sm ${company.isActive ? 'text-red-600 border-red-300 hover:bg-red-50' : 'text-green-600 border-green-300 hover:bg-green-50'} border rounded-lg`}
                 >
-                  {company.isActive ? <Trash2 className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
+                  {company.isActive ? <XCircle className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
+                </button>
+              </div> */}
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => handleEditCompany(company)}
+                  className="flex-1 flex items-center justify-center px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"
+                >
+                  <Edit className="w-4 h-4 mr-1" />
+                  Edit
                 </button>
               </div>
+
             </div>
           ))}
         </div>

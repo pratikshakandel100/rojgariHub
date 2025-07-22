@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Briefcase, Plus, Users, User, Bell, Search, Settings, LogOut, Menu, X } from 'lucide-react';
+import { Briefcase, Plus, Users, User, Bell, Search, Menu, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import api from '../../utils/api';
 
@@ -80,16 +80,6 @@ function Sidebar({ applications = [] }) {
               <User className="h-5 w-5" />
               <span className="font-medium">Profile</span>
             </NavLink>
-            <div className="mt-8 pt-4 border-t border-gray-200">
-              <NavLink to="/employee/setting" className={navClass}>
-                <Settings className="h-5 w-5" />
-                <span className="font-medium">Settings</span>
-              </NavLink>
-              <button className="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                <LogOut className="h-5 w-5" />
-                <span className="font-medium">Logout</span>
-              </button>
-            </div>
           </nav>
         </div>
       </aside>

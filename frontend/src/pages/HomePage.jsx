@@ -309,7 +309,7 @@ const RojgarHubHomepage = () => {
                       className="w-full outline-none"
                     />
                   </div>
-                  <div className="w-full sm:flex-1 flex items-center">
+                  {/* <div className="w-full sm:flex-1 flex items-center">
                     <MapPin className="w-5 h-5 text-gray-400 mr-2" />
                     <input
                       type="text"
@@ -321,7 +321,7 @@ const RojgarHubHomepage = () => {
                   </div>
                   <button className="w-full sm:w-auto bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700">
                     Search my job
-                  </button>
+                  </button> */}
                 </div>
               </div>
               
@@ -330,7 +330,7 @@ const RojgarHubHomepage = () => {
               </div>
             </div>
             
-            <div className="flex-1 flex justify-center lg:justify-end">
+            {/* <div className="flex-1 flex justify-center lg:justify-end">
               <div className="w-64 h-80 sm:w-80 sm:h-96 bg-gradient-to-br from-indigo-400 to-blue-500 rounded-lg flex items-center justify-center">
                 <div className="text-white text-center">
                   <div className="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -339,7 +339,7 @@ const RojgarHubHomepage = () => {
                   <p className="text-lg font-medium">Find Your Dream Job</p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
@@ -392,7 +392,7 @@ const RojgarHubHomepage = () => {
         </div>
       </section>
 
-      {/* Start Posting Jobs */}
+      {/* Start Posting Jobs
       <section className="py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-indigo-600 rounded-xl sm:rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-center">
@@ -418,7 +418,7 @@ const RojgarHubHomepage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Featured Jobs */}
       <section className="py-12 sm:py-16">
@@ -458,7 +458,7 @@ const RojgarHubHomepage = () => {
       </section>
 
       {/* Latest Jobs */}
-      <section className="py-12 sm:py-16">
+      {/* <section className="py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-0">
@@ -491,7 +491,7 @@ const RojgarHubHomepage = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12 sm:py-16">

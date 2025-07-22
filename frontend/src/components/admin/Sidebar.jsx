@@ -6,52 +6,20 @@ import {
   Building2, 
   TrendingUp, 
   Zap, 
-  Settings, 
-  X,
-  Shield,
-  Bell
+  Shield, 
+  X 
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import api from '../../utils/api';
+import { useState } from 'react';
 
 const AdminSidebar = ({ sidebarOpen, setSidebarOpen }) => {
-  const [unreadCount, setUnreadCount] = useState(0);
-  const { token } = useAuth();
-
-  const fetchUnreadCount = async () => {
-    try {
-      const response = await api.get('/notifications/unread-count');
-      if (response.success) {
-        setUnreadCount(response.unreadCount);
-      }
-    } catch (error) {
-      console.error('Error fetching unread count:', error);
-    }
-  };
-
-  useEffect(() => {
-    if (token) {
-      fetchUnreadCount();
-      const interval = setInterval(fetchUnreadCount, 30000);
-      return () => clearInterval(interval);
-    }
-  }, [token]);
-
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard' },
     { icon: Users, label: 'Users', path: '/admin/users' },
     { icon: Briefcase, label: 'Jobs', path: '/admin/jobs' },
     { icon: Building2, label: 'Companies', path: '/admin/companies' },
     { icon: Zap, label: 'Boost Requests', path: '/admin/boost' },
-    { icon: TrendingUp, label: 'Analytics', path: '/admin/analytics' },
-    { 
-      icon: Bell, 
-      label: 'Notifications', 
-      path: '/admin/notifications',
-      badge: unreadCount > 0 ? unreadCount : null
-    },
-    { icon: Settings, label: 'Settings', path: '/admin/settings' }
+    { icon: TrendingUp, label: 'Analytics', path: '/admin/analytics' }
+    // Notifications, Settings, Logout removed
   ];
 
   return (
@@ -108,11 +76,6 @@ const AdminSidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     <Icon size={18} className="mr-3" />
                     {item.label}
                   </div>
-                  {item.badge && (
-                    <span className="bg-red-500 text-white text-xs rounded-full px-2 py-1 min-w-[20px] text-center">
-                      {item.badge > 99 ? '99+' : item.badge}
-                    </span>
-                  )}
                 </NavLink>
               );
             })}
