@@ -355,7 +355,7 @@ const BoostPage = () => {
 
       {/* Payment Methods & Transaction Summary */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200">
           <div className="p-6 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-900">Payment Methods</h3>
           </div>
@@ -384,7 +384,7 @@ const BoostPage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
           <div className="p-6 border-b border-gray-200">

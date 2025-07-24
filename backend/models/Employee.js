@@ -1,7 +1,8 @@
+
+
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
 import bcrypt from 'bcryptjs';
-import JobSeeker from './JobSeeker.js';
 
 const Employee = sequelize.define('Employee', {
   id: {
@@ -116,29 +117,12 @@ const Employee = sequelize.define('Employee', {
   timestamps: true,
   hooks: {
     beforeCreate: async (employee) => {
-      const users = await JobSeeker.findOne({
-        where: {
-          email: employee.email
-        }
-      })
-
-      if(users){
-        throw new Error("Already email exists on user panel");
-      }
       if (employee.password) {
         const salt = await bcrypt.genSalt(10);
         employee.password = await bcrypt.hash(employee.password, salt);
       }
     },
     beforeUpdate: async (employee) => {
-        const users = await JobSeeker.findOne({
-        where: {
-          email: employee.email
-        }
-      })
-      if(users){
-        throw new Error("Already email exists on user panel");
-      }
       if (employee.changed('password')) {
         const salt = await bcrypt.genSalt(10);
         employee.password = await bcrypt.hash(employee.password, salt);

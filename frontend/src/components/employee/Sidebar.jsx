@@ -80,8 +80,11 @@ function Sidebar({ applications = [] }) {
               <User className="h-5 w-5" />
               <span className="font-medium">Profile</span>
             </NavLink>
+<<<<<<< HEAD
 
             {/* Removed Settings and Logout section */}
+=======
+>>>>>>> 1aa398dd0753edb6560b441b154a3d3abaf1be79
           </nav>
         </div>
       </aside>

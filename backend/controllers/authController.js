@@ -127,7 +127,7 @@ export const employeeRegister = async (req, res) => {
 
     const existingEmployee = await Employee.findOne({ where: { email } });
     if (existingEmployee) {
-      return res.status(400).json({ message: 'Employee already exists', success: false });
+      return res.status(400).json({ message: 'Employee already exists' });
     }
 
     const employee = await Employee.create({
@@ -145,8 +145,8 @@ export const employeeRegister = async (req, res) => {
       user: { id: employee.id, email: employee.email, role: 'employee' }
     });
   } catch (error) {
-    console.log(error.message);
-    res.json({ message: error.message, success: false});
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 

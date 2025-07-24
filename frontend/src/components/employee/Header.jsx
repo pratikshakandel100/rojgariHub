@@ -55,7 +55,7 @@ const Header = ({ companyProfile }) => {
         </div>
         <div className="flex items-center space-x-4">
           {/* Notifications */}
-          <button 
+          <button
             onClick={() => navigate('/employee/notifications')}
             className="relative p-2 text-gray-400 hover:text-gray-600 transition-colors"
           >
@@ -66,7 +66,7 @@ const Header = ({ companyProfile }) => {
               </span>
             )}
           </button>
-          
+
           {/* User dropdown */}
           <div className="relative">
             <button
@@ -85,13 +85,19 @@ const Header = ({ companyProfile }) => {
                 </div>
               )}
               <span className="text-sm font-medium hidden sm:block">
+<<<<<<< HEAD
                 {user?.firstName && user?.lastName 
                   ? `${user.firstName} ${user.lastName}` 
                   : user?.displayName || user?.name || companyProfile?.name || 'Employee'
                 }
+=======
+                {user?.firstName && user?.lastName
+                  ? `${user.firstName} ${user.lastName}`
+                  : user?.displayName || user?.name || companyProfile?.name || 'Employee'}
+>>>>>>> 1aa398dd0753edb6560b441b154a3d3abaf1be79
               </span>
             </button>
-            
+
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                 <button
@@ -104,7 +110,10 @@ const Header = ({ companyProfile }) => {
                   <User size={16} className="mr-2" />
                   Profile
                 </button>
+<<<<<<< HEAD
                 {/* Settings removed */}
+=======
+>>>>>>> 1aa398dd0753edb6560b441b154a3d3abaf1be79
                 <button
                   onClick={handleLogout}
                   className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"

@@ -309,7 +309,7 @@ const RojgarHubHomepage = () => {
                       className="w-full outline-none"
                     />
                   </div>
-                  <div className="w-full sm:flex-1 flex items-center">
+                  {/* <div className="w-full sm:flex-1 flex items-center">
                     <MapPin className="w-5 h-5 text-gray-400 mr-2" />
                     <input
                       type="text"
@@ -321,7 +321,7 @@ const RojgarHubHomepage = () => {
                   </div>
                   <button className="w-full sm:w-auto bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700">
                     Search my job
-                  </button>
+                  </button> */}
                 </div>
               </div>
               
@@ -392,8 +392,8 @@ const RojgarHubHomepage = () => {
         </div>
       </section>
 
-      {/* Start Posting Jobs */}
-      {/* <section className="py-12 sm:py-16">
+      {/* Start Posting Jobs
+      <section className="py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-indigo-600 rounded-xl sm:rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-center">
             <div className="flex-1 text-white mb-6 lg:mb-0">

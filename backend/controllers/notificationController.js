@@ -22,6 +22,8 @@ export const createNotification = async (recipientId, recipientType, type, title
 
 export const getNotifications = async (req, res) => {
   try {
+    console.log("APITriggred==>");
+    
     const { user, userType } = req;
     const { page = 1, limit = 20, unreadOnly = false } = req.query;
     
@@ -50,6 +52,8 @@ export const getNotifications = async (req, res) => {
       totalPages: Math.ceil(notifications.count / limit)
     });
   } catch (error) {
+    console.log(`otificatioError-->${error}`);
+    
     console.error('Error fetching notifications:', error);
     res.status(500).json({
       success: false,

@@ -1,13 +1,28 @@
+<<<<<<< HEAD
 import { useState } from 'react';
 import { Menu, User, LogOut } from 'lucide-react';
+=======
+import { useState, useEffect } from 'react';
+import { Menu, User, LogOut } from 'lucide-react'; // Removed Settings icon
+>>>>>>> 1aa398dd0753edb6560b441b154a3d3abaf1be79
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const AdminHeader = ({ setSidebarOpen }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+<<<<<<< HEAD
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+=======
+  const { user, logout, token } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // If there are other token-related side effects, keep them here
+  }, [token]);
+
+>>>>>>> 1aa398dd0753edb6560b441b154a3d3abaf1be79
   const handleLogout = () => {
     logout();
     navigate('/admin/login');
@@ -48,7 +63,11 @@ const AdminHeader = ({ setSidebarOpen }) => {
 
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+<<<<<<< HEAD
                 {/* Settings button removed */}
+=======
+                {/* Settings button has been removed from here */}
+>>>>>>> 1aa398dd0753edb6560b441b154a3d3abaf1be79
                 <button
                   onClick={handleLogout}
                   className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
