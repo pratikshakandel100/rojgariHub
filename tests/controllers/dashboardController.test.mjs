@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 
-// Mock sequelize and Op
+
 jest.unstable_mockModule('sequelize', () => ({
   Sequelize: class { constructor() {} },
   Op: {
@@ -15,7 +15,7 @@ jest.unstable_mockModule('sequelize', () => ({
   literal: (str) => str,
 }));
 
-// Mock models used in dashboardController
+
 const Application = {
   count: jest.fn(),
   findAll: jest.fn(),
@@ -28,7 +28,7 @@ const Employee = {};
 const JobSeeker = {};
 const Boost = {};
 
-// Mock model files and index
+
 jest.unstable_mockModule('../../backend/models/Application.js', () => ({ default: Application }));
 jest.unstable_mockModule('../../backend/models/Job.js', () => ({ default: Job }));
 jest.unstable_mockModule('../../backend/models/Employee.js', () => ({ default: Employee }));
@@ -42,7 +42,7 @@ jest.unstable_mockModule('../../backend/models/index.js', () => ({
   Boost,
 }));
 
-// Mock sequelize config
+
 jest.unstable_mockModule('../../backend/config/database.js', () => ({
   default: { literal: (str) => str }
 }));

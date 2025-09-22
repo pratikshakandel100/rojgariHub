@@ -36,18 +36,24 @@ export default function Login() {
     setErrorMessage('');
 
     try {
+      console.log('Attempting login with:', formData);
       const response = await authAPI.jobSeekerLogin(formData);
+      console.log('Login response:', response);
 
       if (response.user && response.user.role === 'jobseeker') {
+        console.log('Login successful, setting user data...');
         login(response.user, response.token);
         success('Login successful! Redirecting to dashboard...', 3000);
         setTimeout(() => {
+          console.log('Navigating to dashboard...');
           navigate('/user/dashboard');
         }, 1500);
       } else {
+        console.log('Invalid response format:', response);
         setErrorMessage('Invalid credentials or role');
       }
     } catch (err) {
+      console.error('Login error:', err);
       const errMsg = err.message || 'Invalid credentials';
       setErrorMessage(errMsg);
       error(errMsg);

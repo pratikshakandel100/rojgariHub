@@ -1,5 +1,5 @@
 
-import { success, failure } from '../../backend/utils/message.js'; // adjust this path based on actual location
+import { success, failure } from '../../backend/utils/message.js'; 
 
 describe('Response Helpers', () => {
   it('returns a success response with default values', () => {

@@ -1,13 +1,11 @@
 import { Sequelize, DataTypes } from 'sequelize';
 
-// Create in-memory SQLite database for testing
 const testSequelize = new Sequelize({
   dialect: 'sqlite',
   storage: ':memory:',
   logging: false
 });
 
-// Define the Notification model for testing
 const Notification = testSequelize.define('Notification', {
   id: {
     type: DataTypes.INTEGER,

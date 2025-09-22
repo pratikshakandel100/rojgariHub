@@ -1,13 +1,11 @@
 import { Sequelize, DataTypes } from 'sequelize';
 
-// Create in-memory SQLite database for testing
 const testSequelize = new Sequelize({
   dialect: 'sqlite',
   storage: ':memory:',
   logging: false
 });
 
-// Define the Job model for testing
 const Job = testSequelize.define('Job', {
   id: {
     type: DataTypes.UUID,

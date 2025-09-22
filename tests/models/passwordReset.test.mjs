@@ -1,14 +1,12 @@
 import { Sequelize, DataTypes } from 'sequelize';
 import crypto from 'crypto';
 
-// Create in-memory SQLite database for testing
 const testSequelize = new Sequelize({
   dialect: 'sqlite',
   storage: ':memory:',
   logging: false
 });
 
-// Define the PasswordReset model for testing
 const PasswordReset = testSequelize.define('PasswordReset', {
   id: {
     type: DataTypes.UUID,
@@ -35,7 +33,7 @@ const PasswordReset = testSequelize.define('PasswordReset', {
   expiresAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: () => new Date(Date.now() + 60 * 60 * 1000) // 1 hour from now
+    defaultValue: () => new Date(Date.now() + 60 * 60 * 1000) 
   },
   isUsed: {
     type: DataTypes.BOOLEAN,

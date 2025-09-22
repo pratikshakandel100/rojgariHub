@@ -37,14 +37,14 @@ const auth = (userType) => {
       }
 
       if (!user) {
-        return res.status(401).json({ message: `Token is not valid ${error}` });
+        return res.status(401).json({ message: 'Token is not valid' });
       }
 
       req.user = user;
       req.userType = userType;
       next();
     } catch (error) {
-      res.status(401).json({ message: 	`Token is not valid ${error}` });
+      res.status(401).json({ message: 'Token is not valid' });
     }
   };
 };
@@ -84,14 +84,14 @@ const authenticateToken = async (req, res, next) => {
     }
 
     if (!user) {
-      return res.status(401).json({ message: `Token is not valid ${error}` });
+      return res.status(401).json({ message: 'Token is not valid' });
     }
 
     req.user = user;
     req.userType = decoded.userType;
     next();
   } catch (error) {
-    res.status(401).json({ message: `Token is not valid ${error}` });
+    res.status(401).json({ message: 'Token is not valid' });
   }
 };
 

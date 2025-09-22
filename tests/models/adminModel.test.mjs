@@ -1,14 +1,13 @@
 import bcrypt from 'bcryptjs';
 import { Sequelize, DataTypes } from 'sequelize';
 
-// Create a fresh in-memory SQLite database for testing
+
 const testSequelize = new Sequelize({
   dialect: 'sqlite',
   storage: ':memory:',
   logging: false
 });
 
-// Define the Admin model directly in the test file
 const Admin = testSequelize.define('Admin', {
   id: {
     type: DataTypes.UUID,

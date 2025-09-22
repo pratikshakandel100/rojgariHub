@@ -1,14 +1,12 @@
 import { Sequelize, DataTypes } from 'sequelize';
 import bcrypt from 'bcryptjs';
 
-// Create in-memory SQLite database for testing
 const testSequelize = new Sequelize({
   dialect: 'sqlite',
   storage: ':memory:',
   logging: false
 });
 
-// Define mock Employee model for testing
 const Employee = testSequelize.define('Employee', {
   id: {
     type: DataTypes.UUID,
@@ -25,7 +23,6 @@ const Employee = testSequelize.define('Employee', {
   timestamps: true
 });
 
-// Define the JobSeeker model for testing
 const JobSeeker = testSequelize.define('JobSeeker', {
   id: {
     type: DataTypes.UUID,
