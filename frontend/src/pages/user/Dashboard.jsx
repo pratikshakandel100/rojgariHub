@@ -28,10 +28,15 @@ const Dashboard = () => {
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
+      console.log('Fetching dashboard data...');
+      console.log('Token:', token);
       const response = await api.get('/dashboard/jobseeker');
+      console.log('Dashboard response:', response);
       
       if (response.success) {
         setDashboardData(response);
+      } else {
+        setError('Failed to load dashboard data');
       }
     } catch (error) {
       console.error('Error fetching dashboard data:', error);

@@ -5,6 +5,8 @@ const ProtectedRoute = ({ children, requiredRole, redirectTo = '/login' }) => {
   const { isAuthenticated, user, loading } = useAuth();
   const location = useLocation();
 
+  console.log('ProtectedRoute:', { isAuthenticated: isAuthenticated(), user, loading, requiredRole });
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -14,10 +16,12 @@ const ProtectedRoute = ({ children, requiredRole, redirectTo = '/login' }) => {
   }
 
   if (!isAuthenticated()) {
+    console.log('Not authenticated, redirecting to login');
     return <Navigate to={redirectTo} state={{ from: location }} replace />;
   }
 
   if (requiredRole && user?.role !== requiredRole) {
+    console.log('Role mismatch:', { userRole: user?.role, requiredRole });
     const roleRedirects = {
       admin: '/admin/dashboard',
       employee: '/employee/dashboard',
@@ -27,6 +31,7 @@ const ProtectedRoute = ({ children, requiredRole, redirectTo = '/login' }) => {
     return <Navigate to={roleRedirects[user?.role] || '/'} replace />;
   }
 
+  console.log('Access granted to protected route');
   return children;
 };
 
